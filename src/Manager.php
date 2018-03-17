@@ -13,6 +13,11 @@ declare( strict_types=1 );
 namespace Niirrty\IO\Vfs;
 
 
+/**
+ * The VFS handler manager.
+ *
+ * @package Niirrty\IO\Vfs
+ */
 class Manager
 {
 
@@ -31,11 +36,18 @@ class Manager
 
    /**
     * Initialize a new \Niirrty\IO\Vfs\Manager instance.
+    *
+    * @param \Niirrty\IO\Vfs\Handler|null $firstHandler Optional First assigned VFS Handler
     */
-   public function __construct()
+   public function __construct( ?Handler $firstHandler = null )
    {
 
       $this->_handlers = [];
+
+      if ( null !== $firstHandler )
+      {
+         $this->addHandler( $firstHandler );
+      }
 
    }
 

@@ -19,20 +19,32 @@ use function \Niirrty\strStartsWith;
 use function \Niirrty\substring;
 
 
+/**
+ * The VFS Handler.
+ *
+ * It maps a single Folder to a virtual file system, identified by a protocol.
+ *
+ * @package Niirrty\IO\Vfs
+ */
 class Handler
 {
 
 
    // <editor-fold desc="// – – –   P R I V A T E   F I E L D S   – – – – – – – – – – – – – – – – – – – – – – – –">
 
+   /** @type string The protocol name */
    private $_name;
 
+   /** @type string The root folder mapped by the protocol. */
    private $_rootFolder        = '';
 
+   /** @type string The protocol name. */
    private $_protocolName      = '';
 
+   /** @type string The protocol separator. */
    private $_protocolSeparator = '';
 
+   /** @type array Optional replacements. */
    private $_replacements      = [];
 
    // </editor-fold>
@@ -43,12 +55,29 @@ class Handler
    /**
     * Initialize a new \Niirrty\IO\Vfs\Handler instance.
     *
-    * @param  string $name The Handler name
+    * @param  string $name    The Handler name.
+    * @param  array  $options Available options are 'protocolName', 'protocolSeparator', 'rootFolder' and
+    *                         'replacements' (see set* methods)
     */
-   public function __construct( string $name )
+   public function __construct( string $name, array $options = [] )
    {
 
       $this->_name = $name;
+
+      if ( isset( $options[ 'protocolName' ], $options[ 'protocolSeparator' ] ) )
+      {
+         $this->setProtocol( $options[ 'protocolName' ], $options[ 'protocolSeparator' ] );
+      }
+
+      if ( isset( $options[ 'rootFolder' ] ) )
+      {
+         $this->setRootFolder( $options[ 'rootFolder' ] );
+      }
+
+      if ( isset( $options[ 'replacements' ] ) )
+      {
+         $this->addReplacements( $options[ 'replacements' ] );
+      }
 
    }
 
