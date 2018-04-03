@@ -4,7 +4,7 @@
  * @copyright  ©2017, Ni Irrty
  * @package    Niirrty\IO\Vfs
  * @since      2017-11-03
- * @version    0.1.0
+ * @version    0.2.0
  */
 
 declare( strict_types=1 );
@@ -37,9 +37,9 @@ class Manager
    /**
     * Initialize a new \Niirrty\IO\Vfs\Manager instance.
     *
-    * @param \Niirrty\IO\Vfs\Handler|null $firstHandler Optional First assigned VFS Handler
+    * @param \Niirrty\IO\Vfs\IHandler|null $firstHandler Optional First assigned VFS Handler
     */
-   public function __construct( ?Handler $firstHandler = null )
+   public function __construct( ?IHandler $firstHandler = null )
    {
 
       $this->_handlers = [];
@@ -59,7 +59,7 @@ class Manager
    /**
     * Add/register one or more handlers.
     *
-    * @param  \Niirrty\IO\Vfs\Handler[] $handlers
+    * @param  \Niirrty\IO\Vfs\IHandler[] $handlers
     * @return \Niirrty\IO\Vfs\Manager
     */
    public function addHandlers( array $handlers ) : Manager
@@ -78,10 +78,10 @@ class Manager
    /**
     * Add/register a handler.
     *
-    * @param  \Niirrty\IO\Vfs\Handler $handler
+    * @param  \Niirrty\IO\Vfs\IHandler $handler
     * @return \Niirrty\IO\Vfs\Manager
     */
-   public function addHandler( Handler $handler ) : Manager
+   public function addHandler( IHandler $handler ) : Manager
    {
 
       $this->_handlers[ $handler->getName() ] = $handler;
@@ -94,9 +94,9 @@ class Manager
     * Gets the handler with defined name.
     *
     * @param  string $handlerName
-    * @return \Niirrty\IO\Vfs\Handler|null
+    * @return \Niirrty\IO\Vfs\IHandler|null
     */
-   public function getHandler( string $handlerName ) : ?Handler
+   public function getHandler( string $handlerName ) : ?IHandler
    {
 
       return isset( $this->_handlers[ $handlerName ] )
@@ -110,7 +110,7 @@ class Manager
     *
     * Keys are the handler names, values are the Handler instances.
     *
-    * @return \Niirrty\IO\Vfs\Handler[]
+    * @return \Niirrty\IO\Vfs\IHandler[]
     */
    public function getHandlers() : array
    {

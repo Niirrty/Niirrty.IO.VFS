@@ -1,0 +1,108 @@
+<?php
+/**
+ * @author         Ni Irrty <niirrty+code@gmail.com>
+ * @copyright  (c) 2017, Ni Irrty
+ * @license        MIT
+ * @since          2018-04-03
+ * @version        0.1.0
+ */
+
+
+namespace Niirrty\IO\Vfs\Tests;
+
+
+use Niirrty\ArgumentException;
+use Niirrty\IO\Vfs\Handler;
+use PHPUnit\Framework\TestCase;
+
+
+class HandlerTest extends TestCase
+{
+
+
+   function testInit()
+   {
+
+      $h = new Handler( 'Foo Handler', 'foo', '://', __DIR__, [ 'blub' => 14 ] );
+      $this->assertInstanceOf( Handler::class, $h );
+      $this->assertSame( 'Foo Handler', $h->getName() );
+      $this->assertSame( 'foo://', $h->getProtocol() );
+      $this->assertSame( 'foo', $h->getProtocolName() );
+      $this->assertSame( '://', $h->getProtocolSeparator() );
+      $this->assertTrue( $h->hasReplacement( 'blub' ) );
+      $this->assertFalse( $h->hasReplacement( 'blubb' ) );
+      $this->assertSame( __DIR__, $h->getRootFolder() );
+
+   }
+
+   function testSetProtocolName()
+   {
+
+      $h = new Handler( 'Foo Handler', 'foo', '://', __DIR__ );
+      $this->assertInstanceOf( Handler::class, $h->setProtocolName( 'bar' ) );
+      $this->assertSame( 'bar', $h->getProtocolName() );
+
+   }
+   function testSetProtocolSeparator()
+   {
+
+      $h = new Handler( 'Foo Handler', 'foo', '://', __DIR__ );
+      $this->assertInstanceOf( Handler::class, $h->setProtocolSeparator( ':/' ) );
+      $this->assertSame( ':/', $h->getProtocolSeparator() );
+
+   }
+   function testSetRootFolderException()
+   {
+
+      $this->expectException( ArgumentException::class );
+      $h = new Handler( 'Foo Handler', 'foo', '://', __DIR__ );
+      $h->setRootFolder( __DIR__ . '/foobarbaz' );
+
+   }
+   function testIsValid()
+   {
+
+      $h = new Handler( 'Foo Handler', 'foo', '://', __DIR__ );
+      $this->assertTrue( $h->isValid() );
+      $h = new Handler( 'Foo Handler', '', '://', __DIR__ );
+      $this->assertFalse( $h->isValid() );
+
+   }
+   function testAddReplacement()
+   {
+
+      $h = new Handler( 'Foo Handler', 'foo', '://', __DIR__ );
+      $this->assertFalse( $h->hasReplacement( 'blub' ) );
+      $this->assertSame( $h, $h->addReplacement( 'blub', '1234' ) );
+      $this->assertTrue( $h->hasReplacement( 'blub' ) );
+      $this->assertSame( $h, $h->addReplacement( 'blub', null ) );
+      $this->assertFalse( $h->hasReplacement( 'blub' ) );
+
+   }
+   function testAddReplacements()
+   {
+
+      $h = new Handler( 'Foo Handler', 'foo', '://', __DIR__, [ 'blub' => 14 ] );
+      $this->assertTrue( $h->hasReplacement( 'blub' ) );
+      $h->addReplacements( [ 'blub' => null, 'blubber' => '1212' ] );
+      $this->assertFalse( $h->hasReplacement( 'blub' ) );
+      $this->assertTrue( $h->hasReplacement( 'blubber' ) );
+
+   }
+   function testTryParse()
+   {
+
+      $h = Handler::Create( 'Foo Handler', 'foo', '://', __DIR__, [ 'blub' => 14 ] );
+      $path = 'foo://bar/baz/${xyz}/${abc}';
+      $this->assertTrue( $h->tryParse( $path, [ 'xyz' => '123' ] ) );
+      $this->assertSame( __DIR__ . '/bar/baz/123/${abc}', $path );
+      $path = 'blub://bar/baz';
+      $this->assertFalse( $h->tryParse( $path ) );
+
+   }
+   #function test() { $this->assertSame( '', '' ); }
+   #function test() { $this->assertSame( '', '' ); }
+   #function test() { $this->assertSame( '', '' ); }
+
+
+}

@@ -4,7 +4,7 @@
  * @copyright  ©2017, Ni Irrty
  * @package    Niirrty\IO\Vfs
  * @since      2017-11-03
- * @version    0.1.0
+ * @version    0.2.0
  */
 
 
@@ -26,7 +26,7 @@ use function \Niirrty\substring;
  *
  * @package Niirrty\IO\Vfs
  */
-class Handler
+class Handler implements IHandler
 {
 
 
@@ -55,28 +55,31 @@ class Handler
    /**
     * Initialize a new \Niirrty\IO\Vfs\Handler instance.
     *
-    * @param  string $name    The Handler name.
-    * @param  array  $options Available options are 'protocolName', 'protocolSeparator', 'rootFolder' and
-    *                         'replacements' (see set* methods)
+    * @param  string   $name              The Handler name (only required for identification).
+    * @param  string   $protocolName      The VFS protocol name.
+    * @param  string   $protocolSeparator The VFS protocol separator.
+    * @param  string   $rootFolder        The VFS root folder (directory). The used protocol points to this folder.
+    * @param  string[] $replacements      The optional replacements. Replaces a part of a path with format ${replacementName}
     */
-   public function __construct( string $name, array $options = [] )
+   public function __construct(
+      string $name, string $protocolName, string $protocolSeparator, string $rootFolder, array $replacements = [] )
    {
 
       $this->_name = $name;
 
-      if ( isset( $options[ 'protocolName' ], $options[ 'protocolSeparator' ] ) )
+      if ( ! empty( $protocolName ) && ! empty( $protocolSeparator ) )
       {
-         $this->setProtocol( $options[ 'protocolName' ], $options[ 'protocolSeparator' ] );
+         $this->setProtocol( $protocolName, $protocolSeparator );
       }
 
-      if ( isset( $options[ 'rootFolder' ] ) )
+      if ( ! empty( $rootFolder ) )
       {
-         $this->setRootFolder( $options[ 'rootFolder' ] );
+         $this->setRootFolder( $rootFolder );
       }
 
-      if ( isset( $options[ 'replacements' ] ) )
+      if ( 0 < \count( $replacements ) )
       {
-         $this->addReplacements( $options[ 'replacements' ] );
+         $this->addReplacements( $replacements );
       }
 
    }
@@ -143,7 +146,7 @@ class Handler
    public function setRootFolder( string $folder ) : Handler
    {
 
-      if ( ! @is_dir( $folder ) )
+      if ( ! @\is_dir( $folder ) )
       {
          throw new ArgumentException(
             'folder',
@@ -214,7 +217,7 @@ class Handler
    public function getRootFolder() : string
    {
 
-      return $this->_protocolSeparator;
+      return $this->_rootFolder;
 
    }
 
@@ -347,13 +350,19 @@ class Handler
    // <editor-fold desc="// – – –   P U B L I C   S T A T I C   M E T H O D S   – – – – – – – – – – – – – – – – –">
 
    /**
-    * @param  string $name The Handler name
+    * @param string $name
+    * @param string $protocolName
+    * @param string $protocolSeparator
+    * @param string $rootFolder
+    * @param array  $replacements
     * @return \Niirrty\IO\Vfs\Handler
     */
-   public static function Create( string $name ) : Handler
+   public static function Create(
+      string $name, string $protocolName, string $protocolSeparator, string $rootFolder, array $replacements = [] )
+      : Handler
    {
 
-      return new self( $name );
+      return new self( $name, $protocolName, $protocolSeparator, $rootFolder, $replacements );
 
    }
 
