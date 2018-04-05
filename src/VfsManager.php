@@ -4,7 +4,7 @@
  * @copyright  ©2017, Ni Irrty
  * @package    Niirrty\IO\Vfs
  * @since      2017-11-03
- * @version    0.2.0
+ * @version    0.2.1
  */
 
 declare( strict_types=1 );
@@ -18,14 +18,14 @@ namespace Niirrty\IO\Vfs;
  *
  * @package Niirrty\IO\Vfs
  */
-class Manager
+class VfsManager implements IVfsManager
 {
 
 
    // <editor-fold desc="// – – –   P R I V A T E   F I E L D S   – – – – – – – – – – – – – – – – – – – – – – – –">
 
    /**
-    * @var \Niirrty\IO\Vfs\Handler[]
+    * @var \Niirrty\IO\Vfs\IVfsHandler[]
     */
    private $_handlers;
 
@@ -37,9 +37,9 @@ class Manager
    /**
     * Initialize a new \Niirrty\IO\Vfs\Manager instance.
     *
-    * @param \Niirrty\IO\Vfs\IHandler|null $firstHandler Optional First assigned VFS Handler
+    * @param \Niirrty\IO\Vfs\IVfsHandler|null $firstHandler Optional First assigned VFS VfsHandler
     */
-   public function __construct( ?IHandler $firstHandler = null )
+   public function __construct( ?IVfsHandler $firstHandler = null )
    {
 
       $this->_handlers = [];
@@ -59,15 +59,15 @@ class Manager
    /**
     * Add/register one or more handlers.
     *
-    * @param  \Niirrty\IO\Vfs\IHandler[] $handlers
-    * @return \Niirrty\IO\Vfs\Manager
+    * @param  \Niirrty\IO\Vfs\IVfsHandler[] $handlers
+    * @return IVfsManager
     */
-   public function addHandlers( array $handlers ) : Manager
+   public function addHandlers( array $handlers ) : IVfsManager
    {
 
       foreach ( $handlers as $handler )
       {
-         if ( ! ( $handler instanceof Handler ) ) { continue; }
+         if ( ! ( $handler instanceof VfsHandler ) ) { continue; }
          $this->_handlers[ $handler->getName() ] = $handler;
       }
 
@@ -78,10 +78,10 @@ class Manager
    /**
     * Add/register a handler.
     *
-    * @param  \Niirrty\IO\Vfs\IHandler $handler
-    * @return \Niirrty\IO\Vfs\Manager
+    * @param  \Niirrty\IO\Vfs\IVfsHandler $handler
+    * @return IVfsManager
     */
-   public function addHandler( IHandler $handler ) : Manager
+   public function addHandler( IVfsHandler $handler ) : IVfsManager
    {
 
       $this->_handlers[ $handler->getName() ] = $handler;
@@ -94,9 +94,9 @@ class Manager
     * Gets the handler with defined name.
     *
     * @param  string $handlerName
-    * @return \Niirrty\IO\Vfs\IHandler|null
+    * @return \Niirrty\IO\Vfs\IVfsHandler|null
     */
-   public function getHandler( string $handlerName ) : ?IHandler
+   public function getHandler( string $handlerName ) : ?IVfsHandler
    {
 
       return isset( $this->_handlers[ $handlerName ] )
@@ -108,9 +108,9 @@ class Manager
    /**
     * Get all handlers as associative array.
     *
-    * Keys are the handler names, values are the Handler instances.
+    * Keys are the handler names, values are the VfsHandler instances.
     *
-    * @return \Niirrty\IO\Vfs\IHandler[]
+    * @return \Niirrty\IO\Vfs\IVfsHandler[]
     */
    public function getHandlers() : array
    {
@@ -122,13 +122,13 @@ class Manager
    /**
     * Gets if the handler is defined.
     *
-    * @param  \Niirrty\IO\Vfs\Handler|string $handler Handler or handler name.
+    * @param  \Niirrty\IO\Vfs\IVfsHandler|string $handler VfsHandler or handler name.
     * @return bool
     */
    public function hasHandler( $handler ) : bool
    {
 
-      if ( $handler instanceof Handler )
+      if ( $handler instanceof IVfsHandler )
       {
          return isset( $this->_handlers[ $handler->getName() ] );
       }
@@ -192,9 +192,9 @@ class Manager
    /**
     * The static constructor for fluent usage.
     *
-    * @return \Niirrty\IO\Vfs\Manager
+    * @return IVfsManager
     */
-   public static function Create() : Manager
+   public static function Create() : IVfsManager
    {
 
       return new self();

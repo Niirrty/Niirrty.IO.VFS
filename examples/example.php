@@ -2,14 +2,12 @@
 
 include \dirname( __DIR__ ) . '/vendor/autoload.php';
 
-use \Niirrty\IO\Vfs\Manager as VfsManager;
-use \Niirrty\IO\Vfs\Handler as VfsHandler;
+use \Niirrty\IO\Vfs\VfsManager;
+use \Niirrty\IO\Vfs\VfsHandler;
 
 $vfsManager = VfsManager::Create()
                         ->addHandler(
-                           VfsHandler::Create( 'Test 1' )
-                                     ->setProtocol( 'foo', ':/' )
-                                     ->setRootFolder( __DIR__ )
+                           VfsHandler::Create( 'Test 1', 'foo', ':/', __DIR__ )
                                      ->addReplacement( 'myReplacement', 'Blub' )
                         );
 

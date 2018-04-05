@@ -4,7 +4,7 @@
  * @copyright  (c) 2018, Ni Irrty
  * @license        MIT
  * @since          2018-04-03
- * @version        0.2.0
+ * @version        0.2.1
  */
 
 
@@ -15,13 +15,13 @@ use Niirrty\IValidStatus;
 
 
 /**
- * The VFS Handler.
+ * The VFS VfsHandler.
  *
  * It maps a single Folder to a virtual file system, identified by a protocol.
  *
  * @package Niirrty\IO\Vfs
  */
-interface IHandler extends IValidStatus
+interface IVfsHandler extends IValidStatus
 {
 
 
@@ -30,7 +30,7 @@ interface IHandler extends IValidStatus
     *
     * @param string $name
     * @param string $separator
-    * @return \Niirrty\IO\Vfs\IHandler
+    * @return \Niirrty\IO\Vfs\IVfsHandler
     */
    public function setProtocol( string $name, string $separator = '://' );
 
@@ -38,7 +38,7 @@ interface IHandler extends IValidStatus
     * Sets the VFS protocol name.
     *
     * @param string $name
-    * @return \Niirrty\IO\Vfs\IHandler
+    * @return \Niirrty\IO\Vfs\IVfsHandler
     */
    public function setProtocolName( string $name );
 
@@ -46,7 +46,7 @@ interface IHandler extends IValidStatus
     * Sets the VFS protocol separator.
     *
     * @param string $separator
-    * @return \Niirrty\IO\Vfs\IHandler
+    * @return \Niirrty\IO\Vfs\IVfsHandler
     */
    public function setProtocolSeparator( string $separator = '://' );
 
@@ -54,7 +54,7 @@ interface IHandler extends IValidStatus
     * Sets the VFS root folder (directory). The used protocol points to this folder.
     *
     * @param string $folder
-    * @return \Niirrty\IO\Vfs\IHandler
+    * @return \Niirrty\IO\Vfs\IVfsHandler
     * @throws \Niirrty\ArgumentException If the folder not exists
     */
    public function setRootFolder( string $folder );
@@ -101,7 +101,7 @@ interface IHandler extends IValidStatus
     *
     * @param  string      $name  The name of the replacement
     * @param  string|null $value The replacement string value (or NULL to remove a replacement)
-    * @return \Niirrty\IO\Vfs\IHandler
+    * @return \Niirrty\IO\Vfs\IVfsHandler
     */
    public function addReplacement( string $name, ?string $value );
 
@@ -111,7 +111,7 @@ interface IHandler extends IValidStatus
     * It replaces a part of a path with format ${replacementName}
     *
     * @param array $replacements Associative array with replacements (keys are the names)
-    * @return \Niirrty\IO\Vfs\IHandler
+    * @return \Niirrty\IO\Vfs\IVfsHandler
     */
    public function addReplacements( array $replacements );
 

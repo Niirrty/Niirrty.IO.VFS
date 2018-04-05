@@ -4,7 +4,7 @@
  * @copyright  ©2017, Ni Irrty
  * @package    Niirrty\IO\Vfs
  * @since      2017-11-03
- * @version    0.2.0
+ * @version    0.2.1
  */
 
 
@@ -20,13 +20,13 @@ use function \Niirrty\substring;
 
 
 /**
- * The VFS Handler.
+ * The VFS VfsHandler.
  *
  * It maps a single Folder to a virtual file system, identified by a protocol.
  *
  * @package Niirrty\IO\Vfs
  */
-class Handler implements IHandler
+class VfsHandler implements IVfsHandler
 {
 
 
@@ -53,9 +53,9 @@ class Handler implements IHandler
    // <editor-fold desc="// – – –   P U B L I C   C O N S T R U C T O R   – – – – – – – – – – – – – – – – – – – –">
 
    /**
-    * Initialize a new \Niirrty\IO\Vfs\Handler instance.
+    * Initialize a new \Niirrty\IO\Vfs\VfsHandler instance.
     *
-    * @param  string   $name              The Handler name (only required for identification).
+    * @param  string   $name              The VfsHandler name (only required for identification).
     * @param  string   $protocolName      The VFS protocol name.
     * @param  string   $protocolSeparator The VFS protocol separator.
     * @param  string   $rootFolder        The VFS root folder (directory). The used protocol points to this folder.
@@ -94,9 +94,9 @@ class Handler implements IHandler
     *
     * @param string $name
     * @param string $separator
-    * @return \Niirrty\IO\Vfs\Handler
+    * @return \Niirrty\IO\Vfs\VfsHandler
     */
-   public function setProtocol( string $name, string $separator = '://' ) : Handler
+   public function setProtocol( string $name, string $separator = '://' ) : VfsHandler
    {
 
       $this->_protocolName = $name ?? '';
@@ -110,9 +110,9 @@ class Handler implements IHandler
     * Sets the VFS protocol name.
     *
     * @param string $name
-    * @return \Niirrty\IO\Vfs\Handler
+    * @return \Niirrty\IO\Vfs\VfsHandler
     */
-   public function setProtocolName( string $name ) : Handler
+   public function setProtocolName( string $name ) : VfsHandler
    {
 
       $this->_protocolName = $name ?? '';
@@ -125,9 +125,9 @@ class Handler implements IHandler
     * Sets the VFS protocol separator.
     *
     * @param string $separator
-    * @return \Niirrty\IO\Vfs\Handler
+    * @return \Niirrty\IO\Vfs\VfsHandler
     */
-   public function setProtocolSeparator( string $separator = '://' ) : Handler
+   public function setProtocolSeparator( string $separator = '://' ) : VfsHandler
    {
 
       $this->_protocolSeparator = $separator ?? '';
@@ -140,10 +140,10 @@ class Handler implements IHandler
     * Sets the VFS root folder (directory). The used protocol points to this folder.
     *
     * @param string $folder
-    * @return \Niirrty\IO\Vfs\Handler
+    * @return \Niirrty\IO\Vfs\VfsHandler
     * @throws \Niirrty\ArgumentException If the folder not exists
     */
-   public function setRootFolder( string $folder ) : Handler
+   public function setRootFolder( string $folder ) : VfsHandler
    {
 
       if ( ! @\is_dir( $folder ) )
@@ -240,9 +240,9 @@ class Handler implements IHandler
     *
     * @param  string      $name  The name of the replacement
     * @param  string|null $value The replacement string value (or NULL to remove a replacement)
-    * @return \Niirrty\IO\Vfs\Handler
+    * @return \Niirrty\IO\Vfs\VfsHandler
     */
-   public function addReplacement( string $name, ?string $value ) : Handler
+   public function addReplacement( string $name, ?string $value ) : VfsHandler
    {
 
       if ( null === $value )
@@ -266,9 +266,9 @@ class Handler implements IHandler
     * It replaces a part of a path with format ${replacementName}
     *
     * @param array $replacements Associative array with replacements (keys are the names)
-    * @return \Niirrty\IO\Vfs\Handler
+    * @return \Niirrty\IO\Vfs\VfsHandler
     */
-   public function addReplacements( array $replacements ) : Handler
+   public function addReplacements( array $replacements ) : VfsHandler
    {
 
       foreach ( $replacements as $name => $value )
@@ -355,11 +355,11 @@ class Handler implements IHandler
     * @param string $protocolSeparator
     * @param string $rootFolder
     * @param array  $replacements
-    * @return \Niirrty\IO\Vfs\Handler
+    * @return \Niirrty\IO\Vfs\VfsHandler
     */
    public static function Create(
       string $name, string $protocolName, string $protocolSeparator, string $rootFolder, array $replacements = [] )
-      : Handler
+      : VfsHandler
    {
 
       return new self( $name, $protocolName, $protocolSeparator, $rootFolder, $replacements );

@@ -1,6 +1,14 @@
 # Niirrty.IO.VFS Changelog
 
 
+## Version 0.2.1 (2018-04-05)
+
+* Add interface `IVfsManager`
+* Rename interface `IHandler` to `IVfsHandler`
+* Rename class `Handler` to `VfsHandler`
+* Rename class `Manager` to `VfsManager`
+
+
 ## Version 0.2.0 (2018-04-03)
 
 Add unit tests with 100% code coverage.

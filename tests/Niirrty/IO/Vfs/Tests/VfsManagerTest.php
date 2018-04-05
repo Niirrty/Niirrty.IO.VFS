@@ -11,24 +11,25 @@
 namespace Niirrty\IO\Vfs\Tests;
 
 
-use Niirrty\IO\Vfs\Handler;
-use Niirrty\IO\Vfs\Manager;
+use Niirrty\IO\Vfs\VfsHandler;
+use Niirrty\IO\Vfs\IVfsManager;
+use Niirrty\IO\Vfs\VfsManager;
 use PHPUnit\Framework\TestCase;
 
 
-class ManagerTest extends TestCase
+class VfsManagerTest extends TestCase
 {
 
 
    /**
-    * @type \Niirrty\IO\Vfs\Manager
+    * @type IVfsManager
     */
    private $manager;
 
    public function setUp()
    {
 
-      $this->manager = new Manager( Handler::Create( 'MyVFS', 'my', '://', __DIR__ ) );
+      $this->manager = new VfsManager( VfsHandler::Create( 'MyVFS', 'my', '://', __DIR__ ) );
 
       parent::setUp();
 
@@ -37,7 +38,7 @@ class ManagerTest extends TestCase
    public function testInit()
    {
 
-      $this->assertInstanceOf( Handler::class, $this->manager->getHandler( 'MyVFS' ) );
+      $this->assertInstanceOf( VfsHandler::class, $this->manager->getHandler( 'MyVFS' ) );
 
    }
 
@@ -45,19 +46,19 @@ class ManagerTest extends TestCase
    {
 
       $this->manager->addHandlers(
-         [ new Handler( 'TempVFS', 'tmp', '://', \dirname( __DIR__ ) ) ]
+         [ new VfsHandler( 'TempVFS', 'tmp', '://', \dirname( __DIR__ ) ) ]
       );
 
-      $this->assertInstanceOf( Handler::class, $this->manager->getHandler( 'TempVFS' ) );
+      $this->assertInstanceOf( VfsHandler::class, $this->manager->getHandler( 'TempVFS' ) );
 
    }
 
    public function testAddHandler()
    {
 
-      $this->manager->addHandler( new Handler( 'xyz', 'xyz', '://', \dirname( \dirname( __DIR__ ) ) ) );
+      $this->manager->addHandler( new VfsHandler( 'xyz', 'xyz', '://', \dirname( \dirname( __DIR__ ) ) ) );
 
-      $this->assertInstanceOf( Handler::class, $this->manager->getHandler( 'xyz' ) );
+      $this->assertInstanceOf( VfsHandler::class, $this->manager->getHandler( 'xyz' ) );
 
    }
 
@@ -79,7 +80,7 @@ class ManagerTest extends TestCase
    {
 
       $this->assertFalse( $this->manager->hasHandler( 'xyz' ) );
-      $this->assertTrue( $this->manager->hasHandler( Handler::Create( 'MyVFS', 'my', '://', __DIR__ ) ) );
+      $this->assertTrue( $this->manager->hasHandler( VfsHandler::Create( 'MyVFS', 'my', '://', __DIR__ ) ) );
       $this->assertFalse( $this->manager->hasHandler( null ) );
       $this->assertFalse( $this->manager->hasHandler( 123 ) );
 
@@ -111,7 +112,7 @@ class ManagerTest extends TestCase
    public function testCreate()
    {
 
-      $this->assertInstanceOf( Manager::class, Manager::Create() );
+      $this->assertInstanceOf( VfsManager::class, VfsManager::Create() );
 
    }
 
