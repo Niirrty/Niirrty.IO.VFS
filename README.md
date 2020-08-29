@@ -4,6 +4,20 @@
 
 This small library gives you a simple virtual file system.
 
+
+## Installation
+
+inside the `composer.json`:
+
+```json
+{
+    "require": {
+        "php": ">=7.1",
+        "niirrty/niirrty.io.vfs": "~0.3"
+    }
+}
+```
+
 ## Usage
 
 The usage is very simple.

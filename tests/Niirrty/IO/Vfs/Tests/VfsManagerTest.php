@@ -21,100 +21,100 @@ class VfsManagerTest extends TestCase
 {
 
 
-   /**
-    * @type IVfsManager
-    */
-   private $manager;
+    /**
+     * @type IVfsManager
+     */
+    private $manager;
 
-   public function setUp()
-   {
+    public function setUp()
+    {
 
-      $this->manager = new VfsManager( VfsHandler::Create( 'MyVFS', 'my', '://', __DIR__ ) );
+        $this->manager = new VfsManager( VfsHandler::Create( 'MyVFS', 'my', '://', __DIR__ ) );
 
-      parent::setUp();
+        parent::setUp();
 
-   }
+    }
 
-   public function testInit()
-   {
+    public function testInit()
+    {
 
-      $this->assertInstanceOf( VfsHandler::class, $this->manager->getHandler( 'MyVFS' ) );
+        $this->assertInstanceOf( VfsHandler::class, $this->manager->getHandler( 'MyVFS' ) );
 
-   }
+    }
 
-   public function testAddHandlers()
-   {
+    public function testAddHandlers()
+    {
 
-      $this->manager->addHandlers(
-         [ new VfsHandler( 'TempVFS', 'tmp', '://', \dirname( __DIR__ ) ) ]
-      );
+        $this->manager->addHandlers(
+            [ new VfsHandler( 'TempVFS', 'tmp', '://', \dirname( __DIR__ ) ) ]
+        );
 
-      $this->assertInstanceOf( VfsHandler::class, $this->manager->getHandler( 'TempVFS' ) );
+        $this->assertInstanceOf( VfsHandler::class, $this->manager->getHandler( 'TempVFS' ) );
 
-   }
+    }
 
-   public function testAddHandler()
-   {
+    public function testAddHandler()
+    {
 
-      $this->manager->addHandler( new VfsHandler( 'xyz', 'xyz', '://', \dirname( \dirname( __DIR__ ) ) ) );
+        $this->manager->addHandler( new VfsHandler( 'xyz', 'xyz', '://', \dirname( \dirname( __DIR__ ) ) ) );
 
-      $this->assertInstanceOf( VfsHandler::class, $this->manager->getHandler( 'xyz' ) );
+        $this->assertInstanceOf( VfsHandler::class, $this->manager->getHandler( 'xyz' ) );
 
-   }
+    }
 
-   public function testGetHandler()
-   {
+    public function testGetHandler()
+    {
 
-      $this->assertSame( null, $this->manager->getHandler( 'xyz' ) );
+        $this->assertSame( null, $this->manager->getHandler( 'xyz' ) );
 
-   }
+    }
 
-   public function testGetHandlers()
-   {
+    public function testGetHandlers()
+    {
 
-      $this->assertSame( 1, \count( $this->manager->getHandlers() ) );
+        $this->assertSame( 1, \count( $this->manager->getHandlers() ) );
 
-   }
+    }
 
-   public function testHasHandler()
-   {
+    public function testHasHandler()
+    {
 
-      $this->assertFalse( $this->manager->hasHandler( 'xyz' ) );
-      $this->assertTrue( $this->manager->hasHandler( VfsHandler::Create( 'MyVFS', 'my', '://', __DIR__ ) ) );
-      $this->assertFalse( $this->manager->hasHandler( null ) );
-      $this->assertFalse( $this->manager->hasHandler( 123 ) );
+        $this->assertFalse( $this->manager->hasHandler( 'xyz' ) );
+        $this->assertTrue( $this->manager->hasHandler( VfsHandler::Create( 'MyVFS', 'my', '://', __DIR__ ) ) );
+        $this->assertFalse( $this->manager->hasHandler( null ) );
+        $this->assertFalse( $this->manager->hasHandler( 123 ) );
 
-   }
+    }
 
-   public function testClearHandlers()
-   {
+    public function testClearHandlers()
+    {
 
-      $this->manager->clearHandlers();
-      $this->assertSame( 0, \count( $this->manager->getHandlers() ) );
+        $this->manager->clearHandlers();
+        $this->assertSame( 0, \count( $this->manager->getHandlers() ) );
 
-   }
+    }
 
-   public function testGetHandlerNames()
-   {
+    public function testGetHandlerNames()
+    {
 
-      $this->assertSame( [ 'MyVFS' ], $this->manager->getHandlerNames() );
+        $this->assertSame( [ 'MyVFS' ], $this->manager->getHandlerNames() );
 
-   }
+    }
 
-   public function testParsePath()
-   {
+    public function testParsePath()
+    {
 
-      $this->assertSame( __DIR__ . '/foo', $this->manager->parsePath( 'my://foo' ) );
-      $this->assertSame( 'xyz://foo', $this->manager->parsePath( 'xyz://foo' ) );
+        $this->assertSame( __DIR__ . '/foo', $this->manager->parsePath( 'my://foo' ) );
+        $this->assertSame( 'xyz://foo', $this->manager->parsePath( 'xyz://foo' ) );
 
-   }
+    }
 
-   public function testCreate()
-   {
+    public function testCreate()
+    {
 
-      $this->assertInstanceOf( VfsManager::class, VfsManager::Create() );
+        $this->assertInstanceOf( VfsManager::class, VfsManager::Create() );
 
-   }
+    }
 
 
 }

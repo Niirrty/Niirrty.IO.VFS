@@ -5,11 +5,10 @@ include \dirname( __DIR__ ) . '/vendor/autoload.php';
 use \Niirrty\IO\Vfs\VfsManager;
 use \Niirrty\IO\Vfs\VfsHandler;
 
-$vfsManager = VfsManager::Create()
-                        ->addHandler(
-                           VfsHandler::Create( 'Test 1', 'foo', ':/', __DIR__ )
-                                     ->addReplacement( 'myReplacement', 'Blub' )
-                        );
+$vfsManager = VfsManager::Create()->addHandler(
+    VfsHandler::Create( 'Test 1', 'foo', ':/', __DIR__ )
+    ->addReplacement( 'myReplacement', 'Blub' )
+);
 
 
 echo '__DIR__: ', __DIR__, "\n";
