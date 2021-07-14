@@ -1,10 +1,10 @@
 <?php
 /**
  * @author     Ni Irrty <niirrty+code@gmail.com>
- * @copyright  © 2017-2020, Ni Irrty
+ * @copyright  © 2017-2021, Ni Irrty
  * @package    Niirrty\IO\Vfs
  * @since      2017-11-03
- * @version    0.3.0
+ * @version    0.4.0
  */
 
 declare( strict_types=1 );
@@ -22,17 +22,17 @@ class VfsManager implements IVfsManager
 {
 
 
-    // <editor-fold desc="// – – –   P R I V A T E   F I E L D S   – – – – – – – – – – – – – – – – – – – – – – – –">
+    #region // – – –   P R I V A T E   F I E L D S   – – – – – – – – – – – – – – – – – – – – – – – –
 
     /**
      * @var IVfsHandler[]
      */
-    private $_handlers;
+    private array $_handlers;
 
-    // </editor-fold>
+    #endregion
 
 
-    // <editor-fold desc="// – – –   P U B L I C   C O N S T R U C T O R   – – – – – – – – – – – – – – – – – – – –">
+    #region // – – –   P U B L I C   C O N S T R U C T O R   – – – – – – – – – – – – – – – – – – – –
 
     /**
      * Initialize a new \Niirrty\IO\Vfs\Manager instance.
@@ -51,10 +51,10 @@ class VfsManager implements IVfsManager
 
     }
 
-    // </editor-fold>
+    #endregion
 
 
-    // <editor-fold desc="// – – –   P U B L I C   M E T H O D S   – – – – – – – – – – – – – – – – – – – – – – – –">
+    #region // – – –   P U B L I C   M E T H O D S   – – – – – – – – – – – – – – – – – – – – – – – –
 
     /**
      * Add/register one or more handlers.
@@ -99,9 +99,7 @@ class VfsManager implements IVfsManager
     public function getHandler( string $handlerName ) : ?IVfsHandler
     {
 
-        return isset( $this->_handlers[ $handlerName ] )
-            ? $this->_handlers[ $handlerName ]
-            : null;
+        return $this->_handlers[ $handlerName ] ?? null;
 
     }
 
@@ -122,10 +120,11 @@ class VfsManager implements IVfsManager
     /**
      * Gets if the handler is defined.
      *
-     * @param  IVfsHandler|string $handler VfsHandler or handler name.
+     * @param string|IVfsHandler $handler VfsHandler or handler name.
+     *
      * @return bool
      */
-    public function hasHandler( $handler ) : bool
+    public function hasHandler( string|IVfsHandler $handler ) : bool
     {
 
         if ( $handler instanceof IVfsHandler )
@@ -184,10 +183,10 @@ class VfsManager implements IVfsManager
 
     }
 
-    // </editor-fold>
+    #endregion
 
 
-    // <editor-fold desc="// – – –   P U B L I C   S T A T I C   M E T H O D S   – – – – – – – – – – – – – – – – –">
+    #region // – – –   P U B L I C   S T A T I C   M E T H O D S   – – – – – – – – – – – – – – – – –
 
     /**
      * The static constructor for fluent usage.
@@ -201,7 +200,7 @@ class VfsManager implements IVfsManager
 
     }
 
-    // </editor-fold>
+    #endregion
 
 
 }

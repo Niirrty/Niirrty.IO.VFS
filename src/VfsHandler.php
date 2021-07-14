@@ -1,10 +1,10 @@
 <?php
 /**
  * @author     Ni Irrty <niirrty+code@gmail.com>
- * @copyright  © 2017-2020, Ni Irrty
+ * @copyright  © 2017-2021, Ni Irrty
  * @package    Niirrty\IO\Vfs
  * @since      2017-11-03
- * @version    0.3.0
+ * @version    0.4.0
  */
 
 
@@ -15,7 +15,6 @@ namespace Niirrty\IO\Vfs;
 
 
 use \Niirrty\ArgumentException;
-use function \Niirrty\strStartsWith;
 use function \Niirrty\substring;
 
 
@@ -30,27 +29,24 @@ class VfsHandler implements IVfsHandler
 {
 
 
-    // <editor-fold desc="// – – –   P R I V A T E   F I E L D S   – – – – – – – – – – – – – – – – – – – – – – – –">
-
-    /** @type string The protocol name */
-    private $_name;
+    #region // – – –   P R I V A T E   F I E L D S   – – – – – – – – – – – – – – – – – – – – – – – –
 
     /** @type string The root folder mapped by the protocol. */
-    private $_rootFolder        = '';
+    private string $_rootFolder = '';
 
     /** @type string The protocol name. */
-    private $_protocolName      = '';
+    private string $_protocolName = '';
 
     /** @type string The protocol separator. */
-    private $_protocolSeparator = '';
+    private string $_protocolSeparator = '';
 
     /** @type array Optional replacements. */
-    private $_replacements      = [];
+    private array $_replacements = [];
 
-    // </editor-fold>
+    #endregion
 
 
-    // <editor-fold desc="// – – –   P U B L I C   C O N S T R U C T O R   – – – – – – – – – – – – – – – – – – – –">
+    #region // – – –   P U B L I C   C O N S T R U C T O R   – – – – – – – – – – – – – – – – – – – –
 
     /**
      * Initialize a new \Niirrty\IO\Vfs\VfsHandler instance.
@@ -63,10 +59,8 @@ class VfsHandler implements IVfsHandler
      * @throws ArgumentException
      */
     public function __construct(
-        string $name, string $protocolName, string $protocolSeparator, string $rootFolder, array $replacements = [] )
+        private string $name, string $protocolName, string $protocolSeparator, string $rootFolder, array $replacements = [] )
     {
-
-        $this->_name = $name;
 
         if ( ! empty( $protocolName ) && ! empty( $protocolSeparator ) )
         {
@@ -85,10 +79,10 @@ class VfsHandler implements IVfsHandler
 
     }
 
-    // </editor-fold>
+    #endregion
 
 
-    // <editor-fold desc="// – – –   P U B L I C   M E T H O D S   – – – – – – – – – – – – – – – – – – – – – – – –">
+    #region // – – –   P U B L I C   M E T H O D S   – – – – – – – – – – – – – – – – – – – – – – – –
 
     /**
      * Sets the VFS protocol name and separator.
@@ -170,7 +164,7 @@ class VfsHandler implements IVfsHandler
     public function getName() : string
     {
 
-        return $this->_name;
+        return $this->name;
 
     }
 
@@ -314,7 +308,7 @@ class VfsHandler implements IVfsHandler
 
         $protocol = $this->getProtocol();
 
-        if ( '' === $protocol || ! strStartsWith( $pathRef, $protocol ) )
+        if ( '' === $protocol || ! \str_starts_with( $pathRef, $protocol ) )
         {
             return false;
         }
@@ -324,7 +318,6 @@ class VfsHandler implements IVfsHandler
             $this->addReplacements( $dynamicReplacements );
         }
 
-        /** @noinspection PhpComposerExtensionStubsInspection */
         $pathRef = $this->_rootFolder . DIRECTORY_SEPARATOR . substring( $pathRef, \mb_strlen( $protocol ) );
 
         $pathRef = \preg_replace_callback(
@@ -346,10 +339,10 @@ class VfsHandler implements IVfsHandler
 
     }
 
-    // </editor-fold>
+    #endregion
 
 
-    // <editor-fold desc="// – – –   P U B L I C   S T A T I C   M E T H O D S   – – – – – – – – – – – – – – – – –">
+    #region // – – –   P U B L I C   S T A T I C   M E T H O D S   – – – – – – – – – – – – – – – – –
 
     /**
      * @param string $name
@@ -369,7 +362,7 @@ class VfsHandler implements IVfsHandler
 
     }
 
-    // </editor-fold>
+    #endregion
 
 
 }

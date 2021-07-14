@@ -1,18 +1,18 @@
 <?php
 /**
  * @author         Ni Irrty <niirrty+code@gmail.com>
- * @copyright      © 2018-2020, Ni Irrty
+ * @copyright      © 2018-2021, Ni Irrty
  * @license        MIT
  * @since          2018-04-03
- * @version        0.3.0
+ * @version        0.4.0
  */
 
 
 namespace Niirrty\IO\Vfs;
 
 
-use Niirrty\ArgumentException;
-use Niirrty\IValidStatus;
+use \Niirrty\ArgumentException;
+use \Niirrty\IValidStatus;
 
 
 /**
@@ -33,7 +33,7 @@ interface IVfsHandler extends IValidStatus
      * @param string $separator
      * @return IVfsHandler
      */
-    public function setProtocol( string $name, string $separator = '://' );
+    public function setProtocol( string $name, string $separator = '://' ) : IVfsHandler;
 
     /**
      * Sets the VFS protocol name.
@@ -41,7 +41,7 @@ interface IVfsHandler extends IValidStatus
      * @param string $name
      * @return IVfsHandler
      */
-    public function setProtocolName( string $name );
+    public function setProtocolName( string $name ): IVfsHandler;
 
     /**
      * Sets the VFS protocol separator.
@@ -49,7 +49,7 @@ interface IVfsHandler extends IValidStatus
      * @param string $separator
      * @return IVfsHandler
      */
-    public function setProtocolSeparator( string $separator = '://' );
+    public function setProtocolSeparator( string $separator = '://' ): IVfsHandler;
 
     /**
      * Sets the VFS root folder (directory). The used protocol points to this folder.
@@ -58,7 +58,7 @@ interface IVfsHandler extends IValidStatus
      * @return IVfsHandler
      * @throws ArgumentException If the folder not exists
      */
-    public function setRootFolder( string $folder );
+    public function setRootFolder( string $folder ): IVfsHandler;
 
     /**
      * Gets the handler name
@@ -104,7 +104,7 @@ interface IVfsHandler extends IValidStatus
      * @param  string|null $value The replacement string value (or NULL to remove a replacement)
      * @return IVfsHandler
      */
-    public function addReplacement( string $name, ?string $value );
+    public function addReplacement( string $name, ?string $value ): IVfsHandler;
 
     /**
      * Add or set one or more replacements.
@@ -114,7 +114,7 @@ interface IVfsHandler extends IValidStatus
      * @param array $replacements Associative array with replacements (keys are the names)
      * @return IVfsHandler
      */
-    public function addReplacements( array $replacements );
+    public function addReplacements( array $replacements ): IVfsHandler;
 
     /**
      * Checks if a replacement with defined name exists.

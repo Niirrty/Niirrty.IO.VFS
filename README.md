@@ -12,8 +12,8 @@ inside the `composer.json`:
 ```json
 {
     "require": {
-        "php": ">=7.1",
-        "niirrty/niirrty.io.vfs": "~0.3"
+        "php": ">=8.0",
+        "niirrty/niirrty.io.vfs": "~0.4"
     }
 }
 ```

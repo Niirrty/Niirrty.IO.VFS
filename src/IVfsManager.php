@@ -1,10 +1,10 @@
 <?php
 /**
  * @author         Ni Irrty <niirrty+code@gmail.com>
- * @copyright      © 2018-2020, Ni Irrty
+ * @copyright      © 2018-2021, Ni Irrty
  * @license        MIT
  * @since          2018-04-05
- * @version        0.3.0
+ * @version        0.4.0
  */
 
 
@@ -19,14 +19,13 @@ namespace Niirrty\IO\Vfs;
 interface IVfsManager
 {
 
-
     /**
      * Add/register one or more handlers.
      *
      * @param  IVfsHandler[] $handlers
      * @return IVfsManager
      */
-    public function addHandlers( array $handlers );
+    public function addHandlers( array $handlers ): IVfsManager;
 
     /**
      * Add/register a handler.
@@ -34,7 +33,7 @@ interface IVfsManager
      * @param  IVfsHandler $handler
      * @return IVfsManager
      */
-    public function addHandler( IVfsHandler $handler );
+    public function addHandler( IVfsHandler $handler ): IVfsManager;
 
     /**
      * Gets the handler with defined name.
@@ -56,10 +55,11 @@ interface IVfsManager
     /**
      * Gets if the handler is defined.
      *
-     * @param  VfsHandler|string $handler VfsHandler or handler name.
+     * @param string|IVfsHandler $handler VfsHandler or handler name.
+     *
      * @return bool
      */
-    public function hasHandler( $handler ) : bool;
+    public function hasHandler( string|IVfsHandler $handler ) : bool;
 
     /**
      * Deletes all current defined handlers.
