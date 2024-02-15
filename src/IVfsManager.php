@@ -23,17 +23,17 @@ interface IVfsManager
      * Add/register one or more handlers.
      *
      * @param  IVfsHandler[] $handlers
-     * @return IVfsManager
+     * @return self
      */
-    public function addHandlers( array $handlers ): IVfsManager;
+    public function addHandlers( array $handlers ): self;
 
     /**
      * Add/register a handler.
      *
      * @param  IVfsHandler $handler
-     * @return IVfsManager
+     * @return self
      */
-    public function addHandler( IVfsHandler $handler ): IVfsManager;
+    public function addHandler( IVfsHandler $handler ): self;
 
     /**
      * Gets the handler with defined name.
@@ -64,7 +64,7 @@ interface IVfsManager
     /**
      * Deletes all current defined handlers.
      */
-    public function clearHandlers();
+    public function clearHandlers() : void;
 
     /**
      * Gets the names of all defined handlers

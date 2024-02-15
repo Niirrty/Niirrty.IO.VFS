@@ -31,34 +31,34 @@ interface IVfsHandler extends IValidStatus
      *
      * @param string $name
      * @param string $separator
-     * @return IVfsHandler
+     * @return self
      */
-    public function setProtocol( string $name, string $separator = '://' ) : IVfsHandler;
+    public function setProtocol( string $name, string $separator = '://' ) : self;
 
     /**
      * Sets the VFS protocol name.
      *
      * @param string $name
-     * @return IVfsHandler
+     * @return self
      */
-    public function setProtocolName( string $name ): IVfsHandler;
+    public function setProtocolName( string $name ) : self;
 
     /**
      * Sets the VFS protocol separator.
      *
      * @param string $separator
-     * @return IVfsHandler
+     * @return self
      */
-    public function setProtocolSeparator( string $separator = '://' ): IVfsHandler;
+    public function setProtocolSeparator( string $separator = '://' ) : self;
 
     /**
      * Sets the VFS root folder (directory). The used protocol points to this folder.
      *
      * @param string $folder
-     * @return IVfsHandler
+     * @return self
      * @throws ArgumentException If the folder not exists
      */
-    public function setRootFolder( string $folder ): IVfsHandler;
+    public function setRootFolder( string $folder ) : self;
 
     /**
      * Gets the handler name
@@ -102,9 +102,9 @@ interface IVfsHandler extends IValidStatus
      *
      * @param  string      $name  The name of the replacement
      * @param  string|null $value The replacement string value (or NULL to remove a replacement)
-     * @return IVfsHandler
+     * @return self
      */
-    public function addReplacement( string $name, ?string $value ): IVfsHandler;
+    public function addReplacement( string $name, ?string $value ): self;
 
     /**
      * Add or set one or more replacements.
@@ -112,9 +112,9 @@ interface IVfsHandler extends IValidStatus
      * It replaces a part of a path with format ${replacementName}
      *
      * @param array $replacements Associative array with replacements (keys are the names)
-     * @return IVfsHandler
+     * @return self
      */
-    public function addReplacements( array $replacements ): IVfsHandler;
+    public function addReplacements( array $replacements ): self;
 
     /**
      * Checks if a replacement with defined name exists.

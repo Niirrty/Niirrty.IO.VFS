@@ -12,15 +12,15 @@ inside the `composer.json`:
 ```json
 {
     "require": {
-        "php": ">=8.0",
-        "niirrty/niirrty.io.vfs": "~0.4"
+        "php": ">=8.1",
+        "niirrty/niirrty.io.vfs": "~0.6"
     }
 }
 ```
 
 ## Usage
 
-The usage is very simple.
+The usage is very easy.
 
 ```php
 <?php

@@ -1,5 +1,8 @@
 # Niirrty.IO.VFS Changelog
 
+## Version 0.6.0 (2023-02-14)
+
+* Change return types of some methods from `IVfsHandler` and `IVfsManager` to `self` 
 
 ## Version 0.2.1 (2018-04-05)
 

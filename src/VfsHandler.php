@@ -59,7 +59,8 @@ class VfsHandler implements IVfsHandler
      * @throws ArgumentException
      */
     public function __construct(
-        private string $name, string $protocolName, string $protocolSeparator, string $rootFolder, array $replacements = [] )
+        private readonly string $name, string $protocolName, string $protocolSeparator, string $rootFolder,
+        array $replacements = [] )
     {
 
         if ( ! empty( $protocolName ) && ! empty( $protocolSeparator ) )
@@ -89,13 +90,13 @@ class VfsHandler implements IVfsHandler
      *
      * @param string $name
      * @param string $separator
-     * @return VfsHandler
+     * @return self
      */
-    public function setProtocol( string $name, string $separator = '://' ) : VfsHandler
+    public function setProtocol( string $name, string $separator = '://' ) : self
     {
 
-        $this->_protocolName = $name ?? '';
-        $this->_protocolSeparator = $separator ?? '';
+        $this->_protocolName = ( '' === \trim( $name ) ) ? '' : $name;
+        $this->_protocolSeparator = ( '' === \trim( $separator ) ) ? '' : $separator;
 
         return $this;
 
@@ -105,12 +106,12 @@ class VfsHandler implements IVfsHandler
      * Sets the VFS protocol name.
      *
      * @param string $name
-     * @return VfsHandler
+     * @return self
      */
-    public function setProtocolName( string $name ) : VfsHandler
+    public function setProtocolName( string $name ) : self
     {
 
-        $this->_protocolName = $name ?? '';
+        $this->_protocolName = ( '' === \trim( $name ) ) ? '' : $name;
 
         return $this;
 
@@ -120,12 +121,12 @@ class VfsHandler implements IVfsHandler
      * Sets the VFS protocol separator.
      *
      * @param string $separator
-     * @return VfsHandler
+     * @return self
      */
-    public function setProtocolSeparator( string $separator = '://' ) : VfsHandler
+    public function setProtocolSeparator( string $separator = '://' ) : self
     {
 
-        $this->_protocolSeparator = $separator ?? '';
+        $this->_protocolSeparator =  ( '' === \trim( $separator ) ) ? '' : $separator;
 
         return $this;
 
@@ -135,10 +136,10 @@ class VfsHandler implements IVfsHandler
      * Sets the VFS root folder (directory). The used protocol points to this folder.
      *
      * @param string $folder
-     * @return VfsHandler
+     * @return self
      * @throws ArgumentException If the folder not exists
      */
-    public function setRootFolder( string $folder ) : VfsHandler
+    public function setRootFolder( string $folder ) : self
     {
 
         if ( ! @\is_dir( $folder ) )
@@ -235,9 +236,9 @@ class VfsHandler implements IVfsHandler
      *
      * @param  string      $name  The name of the replacement
      * @param  string|null $value The replacement string value (or NULL to remove a replacement)
-     * @return VfsHandler
+     * @return self
      */
-    public function addReplacement( string $name, ?string $value ) : VfsHandler
+    public function addReplacement( string $name, ?string $value ) : self
     {
 
         if ( null === $value )
@@ -261,9 +262,9 @@ class VfsHandler implements IVfsHandler
      * It replaces a part of a path with format ${replacementName}
      *
      * @param array $replacements Associative array with replacements (keys are the names)
-     * @return VfsHandler
+     * @return self
      */
-    public function addReplacements( array $replacements ) : VfsHandler
+    public function addReplacements( array $replacements ) : self
     {
 
         foreach ( $replacements as $name => $value )

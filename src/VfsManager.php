@@ -60,9 +60,9 @@ class VfsManager implements IVfsManager
      * Add/register one or more handlers.
      *
      * @param  IVfsHandler[] $handlers
-     * @return IVfsManager
+     * @return self
      */
-    public function addHandlers( array $handlers ) : IVfsManager
+    public function addHandlers( array $handlers ) : self
     {
 
         foreach ( $handlers as $handler )
@@ -79,9 +79,9 @@ class VfsManager implements IVfsManager
      * Add/register a handler.
      *
      * @param  IVfsHandler $handler
-     * @return IVfsManager
+     * @return self
      */
-    public function addHandler( IVfsHandler $handler ) : IVfsManager
+    public function addHandler( IVfsHandler $handler ) : self
     {
 
         $this->_handlers[ $handler->getName() ] = $handler;
@@ -144,7 +144,7 @@ class VfsManager implements IVfsManager
     /**
      * Deletes all current defined handlers.
      */
-    public function clearHandlers()
+    public function clearHandlers() : void
     {
 
         $this->_handlers = [];
