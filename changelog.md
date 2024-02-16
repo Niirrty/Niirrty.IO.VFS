@@ -1,6 +1,6 @@
 # Changelog
 
-## Version 0.6.1 `2024-02-16`
+## Version 0.6.1  `2024-02-16`
 
 Niirrty.Core was updated to v0.6.1, so also here an update was required.
 

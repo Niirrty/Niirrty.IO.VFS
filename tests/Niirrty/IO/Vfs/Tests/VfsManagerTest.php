@@ -103,7 +103,7 @@ class VfsManagerTest extends TestCase
     public function testParsePath()
     {
 
-        $this->assertSame( __DIR__ . DIRECTORY_SEPARATOR . 'foo', $this->manager->parsePath( 'my://foo' ) );
+        $this->assertSame( __DIR__ .  DIRECTORY_SEPARATOR . 'foo', $this->manager->parsePath( 'my://foo' ) );
         $this->assertSame( 'xyz://foo', $this->manager->parsePath( 'xyz://foo' ) );
 
     }
