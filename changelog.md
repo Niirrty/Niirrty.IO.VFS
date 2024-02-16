@@ -1,10 +1,14 @@
-# Niirrty.IO.VFS Changelog
+# Changelog
 
-## Version 0.6.0 (2023-02-14)
+## Version 0.6.1 `2024-02-16`
+
+Niirrty.Core was updated to v0.6.1, so also here an update was required.
+
+## Version 0.6.0 `2024-02-14`
 
 * Change return types of some methods from `IVfsHandler` and `IVfsManager` to `self` 
 
-## Version 0.2.1 (2018-04-05)
+## Version 0.2.1 `2018-04-05`
 
 * Add interface `IVfsManager`
 * Rename interface `IHandler` to `IVfsHandler`
@@ -12,12 +16,12 @@
 * Rename class `Manager` to `VfsManager`
 
 
-## Version 0.2.0 (2018-04-03)
+## Version 0.2.0 `2018-04-03`
 
 Add unit tests with 100% code coverage.
 
 
-## Version 0.1.1 (2018-03-17)
+## Version 0.1.1 `2018-03-17`
 
 Add this `changelog.md` file.
 
@@ -29,6 +33,6 @@ Add Optional parameter `?Handler $firstHandler = null` to `\Niirrty\IO\VFS\Manag
 Add some Comments
 
 
-## Version 0.1.0 (2017-11-04)
+## Version 0.1.0 `2017-11-04`
 
 This is the first release :-)

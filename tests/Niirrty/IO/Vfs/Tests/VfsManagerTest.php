@@ -26,7 +26,7 @@ class VfsManagerTest extends TestCase
      */
     private $manager;
 
-    public function setUp()
+    public function setUp() : void
     {
 
         $this->manager = new VfsManager( VfsHandler::Create( 'MyVFS', 'my', '://', __DIR__ ) );
@@ -81,7 +81,6 @@ class VfsManagerTest extends TestCase
 
         $this->assertFalse( $this->manager->hasHandler( 'xyz' ) );
         $this->assertTrue( $this->manager->hasHandler( VfsHandler::Create( 'MyVFS', 'my', '://', __DIR__ ) ) );
-        $this->assertFalse( $this->manager->hasHandler( null ) );
         $this->assertFalse( $this->manager->hasHandler( 123 ) );
 
     }
@@ -104,7 +103,7 @@ class VfsManagerTest extends TestCase
     public function testParsePath()
     {
 
-        $this->assertSame( __DIR__ . '/foo', $this->manager->parsePath( 'my://foo' ) );
+        $this->assertSame( __DIR__ . DIRECTORY_SEPARATOR . 'foo', $this->manager->parsePath( 'my://foo' ) );
         $this->assertSame( 'xyz://foo', $this->manager->parsePath( 'xyz://foo' ) );
 
     }

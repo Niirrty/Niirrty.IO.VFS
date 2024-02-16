@@ -95,7 +95,7 @@ class VfsHandlerTest extends TestCase
         $h = VfsHandler::Create( 'Foo VfsHandler', 'foo', '://', __DIR__, [ 'blub' => 14 ] );
         $path = 'foo://bar/baz/${xyz}/${abc}';
         $this->assertTrue( $h->tryParse( $path, [ 'xyz' => '123' ] ) );
-        $this->assertSame( __DIR__ . '/bar/baz/123/${abc}', $path );
+        $this->assertSame( __DIR__ . DIRECTORY_SEPARATOR . 'bar/baz/123/${abc}', $path );
         $path = 'blub://bar/baz';
         $this->assertFalse( $h->tryParse( $path ) );
 
